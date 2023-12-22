@@ -1,9 +1,5 @@
 use std::collections::HashMap;
 
-const RED: i32 = 12;
-const GREEN: i32 = 13;
-const BLUE: i32 = 14;
-
 
 #[derive(Debug, PartialEq, Eq, Hash)]
 enum Color {
@@ -38,36 +34,37 @@ fn main() {
     let input = include_str!("part1.txt");
     let mut id_sum = 0;
     for line in input.lines() {
+        let mut red_counter = 0;
+        let mut green_counter = 0;
+        let mut blue_counter = 0;
+
 
         let parts: Vec<&str> = line.split(":").collect();
         let game_number: u32 = parts[0].trim().trim_start_matches("Game").trim().parse().expect("Failed to parse game number");
 
         println!("{}", game_number);
-        let mut good = true;
         let segments: Vec<&str> = parts[1].trim().split(';').collect();
         for segment in segments {
             let parsed_line = parse_line(segment);
             for (color, number) in parsed_line {
                 if color == Color::Blue {
-                    if number > BLUE {
-                        good = false;
+                    if number > blue_counter {
+                        blue_counter = number;
                     }
                 }
                 if color == Color::Red {
-                    if number > RED {
-                        good = false;
+                    if number > red_counter {
+                        red_counter = number;
                     }
                 }
                 if color == Color::Green {
-                    if number > RED {
-                        good = false;
+                    if number > green_counter {
+                        green_counter = number
                     }
                 }
             }
         }
-            if good {
-                id_sum += game_number;
-            }
+        id_sum += red_counter*blue_counter*green_counter;
     }
     println!("{}", id_sum);
 }
