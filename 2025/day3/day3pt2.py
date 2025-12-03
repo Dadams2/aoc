@@ -15,9 +15,8 @@ with open("in.txt") as f:
                     indicies[i] = j
                     # print(f"i {i} j {j} num[j] {num[j]} max {max}")
                     prev = j+1
-            print(max)
-            print(indicies)
-        # print(f"indicies {indicies}")
+            # print(max)
+            # print(indicies)
         value = int("".join([num[i] for i in indicies]))
         # print(f" {num} value {value}")
         count += value
